@@ -1,0 +1,7 @@
+name: Banker
+version: '${project.version}'
+main: me.souprpk.main.Banker
+api-version: 1.17
+prefix: Banker
+depend: [ Vault ]
+authors: [ SouprPK ]
