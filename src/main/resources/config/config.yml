@@ -1,0 +1,19 @@
+main:
+  prefix: "&8[aBanker&8] "
+  # Storage systems: flat || mysql
+  storage-system: flat
+  # You can find all the sounds here:
+  # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+  deposit-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  withdraw-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  enable-error: "&cPlugin disabled, something went wrong."
+  gui-display-name:
+    banker-main: "&0Banker"
+    banker-deposit: "&0Banker - Deposit"
+    banker-withdraw: "&0Banker - Withdraw"
+
+discord:
+  enabled: false
+  bot-token: ""
+  channel-id: ""
+  min-amount: "5000"
