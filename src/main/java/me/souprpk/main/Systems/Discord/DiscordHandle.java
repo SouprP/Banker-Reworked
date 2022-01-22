@@ -1,4 +1,4 @@
-package me.souprpk.main.Discord;
+package me.souprpk.main.Systems.Discord;
 
 import me.souprpk.main.Tools.Utilities;
 import net.dv8tion.jda.api.JDA;

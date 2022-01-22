@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class BankerGUI {
         List<String> loreB = new ArrayList<String>();
         ItemMeta mB = moneyInBank.getItemMeta();
         loreB.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentLore1")));
-        loreB.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentLore2")) + ChatColor.GOLD + truncateDecimal((data.getMoney(player.getUniqueId())), 2));
+        loreB.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentLore2")) + ChatColor.GOLD + utils.truncateDecimal((banker.getMain().data.getMoney(player.getUniqueId())), 2));
         mB.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentName")));
         mB.setLore(loreB);
         moneyInBank.setItemMeta(mB);
@@ -99,5 +100,71 @@ public class BankerGUI {
         bankerInv.setItem(15, moneyInBank);
         bankerInv.setItem(31, exit);
         bankerInv.setItem(32, information);
+    }
+
+    public void createDeposInv(Player player) {
+        depositInv = Bukkit.createInventory(null, 36, utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInv")));
+
+        BigDecimal playerMoney = utils.getMoney(player);
+
+        //// Depozyt 100%
+        ItemStack moneyDeposit = new ItemStack(Material.CHEST, 64);
+        List<String> lore1 = new ArrayList<String>();
+        ItemMeta m1 = moneyDeposit.getItemMeta();
+        lore1.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore1-1")));
+        lore1.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore1-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney);
+        m1.setLore(lore1);
+        m1.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName1")));
+        moneyDeposit.setItemMeta(m1);
+
+
+        //// Depozyt 50%
+        ItemStack moneyDeposit2 = new ItemStack(Material.CHEST, 32);
+        List<String> lore2 = new ArrayList<String>();
+        ItemMeta m2 = moneyDeposit2.getItemMeta();
+        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-1")));
+        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney / 2);
+        m2.setLore(lore2);
+        m2.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName2")));
+        moneyDeposit2.setItemMeta(m2);
+
+
+        //// Depozyt 10%
+        ItemStack moneyDeposit3 = new ItemStack(Material.CHEST, 1);
+        List<String> lore3 = new ArrayList<String>();
+        ItemMeta m3 = moneyDeposit3.getItemMeta();
+        lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-1")));
+        lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue()); //playerMoney / 10);
+        m3.setLore(lore3);
+        m3.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName3")));
+        moneyDeposit3.setItemMeta(m3);
+
+        ItemStack goBack = new ItemStack(Material.ARROW);
+        ItemMeta arrowMeta = goBack.getItemMeta();
+        //List<String> loreA = new ArrayList<String>();
+        //loreA.add(ChatColor.GRAY + "Do ");
+        arrowMeta.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("goBack")));
+        goBack.setItemMeta(arrowMeta);
+
+        //// GLASS PANE
+        ItemStack glass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta mG = glass.getItemMeta();
+        mG.setDisplayName(" ");
+        glass.setItemMeta(mG);
+
+        for(int i = 0; i < 36; i++) {
+            depositInv.setItem(i, glass);
+        }
+
+        depositInv.setItem(11, moneyDeposit);
+        depositInv.setItem(13, moneyDeposit2);
+        depositInv.setItem(15, moneyDeposit3);
+        depositInv.setItem(31, goBack);
+    }
+
+    public void resetInv(Player player){
+        player.closeInventory();
+        createBankerInv(player);
+        player.openInventory(bankerInv);
     }
 }

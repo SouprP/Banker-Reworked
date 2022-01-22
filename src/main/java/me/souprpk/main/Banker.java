@@ -1,7 +1,11 @@
 package me.souprpk.main;
 
+import me.souprpk.main.ConfigFiles.FlatFileStorageConfig;
 import me.souprpk.main.ConfigFiles.MessageConfig;
-import me.souprpk.main.Discord.DiscordHandle;
+import me.souprpk.main.Systems.Discord.DiscordHandle;
+import me.souprpk.main.Systems.StorageSystem.FlatFile.FlatFile;
+import me.souprpk.main.Systems.StorageSystem.MySQL.MySQL;
+import me.souprpk.main.Systems.StorageSystem.MySQL.SQLGetter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,6 +20,10 @@ public final class Banker extends JavaPlugin {
 
     // Other essential parts of a plugin
     public MessageConfig messageConfig;
+    public MySQL mySQL;
+    public SQLGetter data;
+    public FlatFileStorageConfig flat;
+    public FlatFile flatData;
     public DiscordHandle discordHandle;
 
     @Override
@@ -30,6 +38,10 @@ public final class Banker extends JavaPlugin {
 
         // Enable modules of a plugin
         messageConfig = new MessageConfig();
+        mySQL = new MySQL();
+        data = new SQLGetter();
+        flat = new FlatFileStorageConfig();
+        flatData = new FlatFile();
         discordHandle = new DiscordHandle();
 
         messageConfig.saveDefaultConfig();

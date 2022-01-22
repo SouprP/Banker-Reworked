@@ -1,7 +1,7 @@
-package me.souprpk.main.StorageSystem.File;
+package me.souprpk.main.Systems.StorageSystem.FlatFile;
 
 import me.souprpk.main.Banker;
-import me.souprpk.main.StorageSystem.StorageSystem;
+import me.souprpk.main.Systems.StorageSystem.StorageSystem;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -18,5 +18,10 @@ public class FlatFile implements StorageSystem {
     @Override
     public void withdraw(UUID uuid, BigDecimal amount) {
 
+    }
+
+    @Override
+    public BigDecimal getMoney(UUID uuid) {
+        return BigDecimal.valueOf(banker.flat.getConfig().getDouble("players." + uuid.toString() + ".bank-money"));
     }
 }

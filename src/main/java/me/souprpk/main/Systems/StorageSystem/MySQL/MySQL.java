@@ -1,4 +1,4 @@
-package me.souprpk.main.StorageSystem.MySQL;
+package me.souprpk.main.Systems.StorageSystem.MySQL;
 
 import me.souprpk.main.Banker;
 

@@ -28,4 +28,8 @@ public class Utilities {
     public BigDecimal getConfigDouble(String mess){
         return BigDecimal.valueOf(banker.getMain().getConfig().getDouble(mess));
     }
+
+    public BigDecimal truncateDecimal(final BigDecimal x, final int numberofDecimals) {
+        return new BigDecimal(String.valueOf(x)).setScale(numberofDecimals, BigDecimal.ROUND_DOWN);
+    }
 }
