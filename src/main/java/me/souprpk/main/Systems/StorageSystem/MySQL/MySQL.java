@@ -10,13 +10,22 @@ public class MySQL {
 
     private Banker banker;
 
-    private final String host = banker.getConfig().getString("host");
-    private final String port = banker.getConfig().getString("port");
-    private final String database = banker.getConfig().getString("database");
-    private final String username = banker.getConfig().getString("username");
-    private final String password = banker.getConfig().getString("password");
+    private String host;
+    private String port;
+    private String database;
+    private String username;
+    private String password;
 
     private Connection connection;
+
+    public MySQL(Banker banker) {
+        this.banker = banker;
+        host = banker.getConfig().getString("host");
+        port = banker.getConfig().getString("port");
+        database = banker.getConfig().getString("database");
+        username = banker.getConfig().getString("username");
+        password = banker.getConfig().getString("password");
+    }
 
     public boolean isConnected() {
         return (connection == null ? false : true);

@@ -16,6 +16,10 @@ public class MessageConfig {
     private FileConfiguration dataConfig = null;
     private File configFile = null;
 
+    public MessageConfig(Banker banker) {
+        this.banker = banker;
+    }
+
     public void reloadConfig() {
         if(this.configFile == null)
             this.configFile = new File(banker.getMain().getDataFolder(), "messages.yml");

@@ -9,6 +9,11 @@ import java.math.BigDecimal;
 public class Utilities {
 
     private Banker banker;
+
+    public Utilities(Banker banker){
+        this.banker = banker;
+    }
+
     public String Translate(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class Transaction {
 
-    private Banker banker;
+    private Banker banker = Banker.getMain();
     private UUID uuid;
     private BigDecimal amount;
     private TransactionType type;

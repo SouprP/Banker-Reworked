@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Banker extends JavaPlugin {
 
     // Main parts of a plugin
-    private Banker main;
+    public static Banker main;
     public Economy eco;
 
     // Other essential parts of a plugin
@@ -24,7 +24,7 @@ public final class Banker extends JavaPlugin {
     public SQLGetter data;
     public FlatFileStorageConfig flat;
     public FlatFile flatData;
-    public DiscordHandle discordHandle;
+    //public DiscordHandle discordHandle;
 
     @Override
     public void onEnable() {
@@ -37,13 +37,14 @@ public final class Banker extends JavaPlugin {
         }
 
         // Enable modules of a plugin
-        messageConfig = new MessageConfig();
-        mySQL = new MySQL();
-        data = new SQLGetter();
-        flat = new FlatFileStorageConfig();
-        flatData = new FlatFile();
-        discordHandle = new DiscordHandle();
+        messageConfig = new MessageConfig(main);
+        mySQL = new MySQL(main);
+        data = new SQLGetter(main);
+        flat = new FlatFileStorageConfig(main);
+        flatData = new FlatFile(main);
+        //discordHandle = new DiscordHandle();
 
+        this.saveDefaultConfig();
         messageConfig.saveDefaultConfig();
     }
 
@@ -52,7 +53,7 @@ public final class Banker extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public Banker getMain(){
+    public static Banker getMain(){
         return main;
     }
 

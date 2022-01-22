@@ -21,7 +21,7 @@ public class BankerGUI {
     private Inventory withdrawInv;
 
     private Utilities utils;
-    private Banker banker;
+    private Banker banker = Banker.getMain();
 
     private void createBankerInv(Player player){
         bankerInv = Bukkit.createInventory(player, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-main")));

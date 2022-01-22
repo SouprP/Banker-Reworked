@@ -14,6 +14,9 @@ public class SQLGetter implements StorageSystem {
 
     private Banker banker;
 
+    public SQLGetter(Banker banker){
+        this.banker = banker;
+    }
     @Override
     public void deposit(UUID uuid, BigDecimal amount) {
         try {

@@ -10,6 +10,10 @@ public class FlatFile implements StorageSystem {
 
     private Banker banker;
 
+    public FlatFile(Banker banker){
+        this.banker = banker;
+    }
+
     @Override
     public void deposit(UUID uuid, BigDecimal amount) {
 
