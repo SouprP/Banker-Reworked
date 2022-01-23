@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 public class Logging {
 
     private Banker banker;
+
+    public Logging(Banker banker){
+        this.banker = banker;
+        createLog();
+    }
     public void createLog() {
 
         File log = new File(banker.getDataFolder(), "logs");

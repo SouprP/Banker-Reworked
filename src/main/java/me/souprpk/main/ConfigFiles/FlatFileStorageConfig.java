@@ -22,11 +22,11 @@ public class FlatFileStorageConfig {
 
     public void reloadConfig() {
         if(this.configFile == null)
-            this.configFile = new File(banker.getMain().getDataFolder(), "storage/flatfile.yml");
+            this.configFile = new File(banker.getMain().getDataFolder(), "flatfile.yml");
 
         this.dataConfig = YamlConfiguration.loadConfiguration(this.configFile);
 
-        InputStream defaultStream = banker.getMain().getResource("storage/flatfile.yml");
+        InputStream defaultStream = banker.getMain().getResource("flatfile.yml");
         if(defaultStream != null) {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
             this.dataConfig.setDefaults(defaultConfig);
@@ -53,10 +53,10 @@ public class FlatFileStorageConfig {
 
     public void saveDefaultConfig() {
         if(this.configFile == null)
-            this.configFile = new File(banker.getMain().getDataFolder(), "storage/flatfile.yml");
+            this.configFile = new File(banker.getMain().getDataFolder(), "flatfile.yml");
 
         if(!this.configFile.exists())
-            banker.getMain().saveResource("storage/flatfile.yml", false);
+            banker.getMain().saveResource("flatfile.yml", false);
 
     }
 }

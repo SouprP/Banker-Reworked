@@ -1,4 +1,4 @@
-package me.souprpk.main.Systems.Loans;
+package me.souprpk.main.Systems.MoneyHandlers;
 
 import me.souprpk.main.Banker;
 import org.bukkit.entity.Player;
