@@ -1,5 +1,6 @@
 package me.souprpk.main;
 
+import me.souprpk.main.Commands.BankerCommand;
 import me.souprpk.main.ConfigFiles.FlatFileStorageConfig;
 import me.souprpk.main.ConfigFiles.MessageConfig;
 import me.souprpk.main.Systems.Discord.DiscordHandle;
@@ -69,6 +70,8 @@ public final class Banker extends JavaPlugin {
         this.saveDefaultConfig();
         messageConfig.saveDefaultConfig();
         flat.saveDefaultConfig();
+
+        this.getCommand("banker").setExecutor(new BankerCommand());
 
         // Check interest time and increase players money
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {

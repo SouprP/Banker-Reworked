@@ -1,0 +1,60 @@
+# Error and relaod messages
+reload-message: "&l&8(&2!&8) &cBanker plugin reloaded!"
+mysql-error: "&l&8(&c!&8) &cYou can't use this command because the plugin is not connected to a database!"
+npcErrorMessage: "&l&8(&c!&8) &cAn error occured, could not get the skin, creating an NPC with default config skin!"
+npcRemoveErrorMessage: "&l&8(&c!&8) &cCould not get entity, did you put the right id? Check the id the console or enable 'showId' in the config to see it chat!"
+noPermissions: "&l&8(&c!&8) &cYou dont have permission to use this command!"
+# MAIN MENU
+bankerMainInv: "&0Banker"
+deposInv: "&0Banker - Deposit"
+withdrawInv: "&0Banker - Withdraw"
+adminInv: "&0Banker Admin GUI"
+# Depos Inv Info
+bankerMainDeposName: "&aDeposit Money"
+bankerMainDeposLore1: "&7Store them in the bank to"
+bankerMainDeposLore2: "&7keep them safe while you go"
+bankerMainDeposLore3: "&7on a advanture!"
+# Withdraw Inv Info
+bankerMainWithdrawName: "&aWithdraw Money"
+bankerMainWithdrawLore1: "&7Take your money out of the"
+bankerMainWithdrawLore2: "&7bank in order to spend"
+bankerMainWithdrawLore3: "&7them."
+# Current Balance Info
+bankerMainCurrentName: "&aCurrent Balance"
+bankerMainCurrentLore1: "&7In your bank account you"
+bankerMainCurrentLore2: "&7currently have: "
+# Close button
+bankerMainClose: "&cClose"
+# Information Panel
+bankerMainInfoName: "&cInformation"
+bankerMainInfoLore1: "&7The banker rewards you"
+bankerMainInfoLore2-1: "&7every "
+bankerMainInfoLore2-2: " &7hours with "
+bankerMainInfoLore3: "  &7interest."
+# SUB - MENUS
+# Deposit Inv
+deposInvName1: "&aDeposit 100%"
+deposInvLore1-1: "&7Deposit all of your money into the bank"
+deposInvLore1-2: "&7Amount to deposit: "
+deposInvName2: "&aDeposit 50%"
+deposInvLore2-1: "&7Deposit half of your money into the bank"
+deposInvLore2-2: "&7Amount to deposit: "
+deposInvName3: "&aDeposit 10%"
+deposInvLore3-1: "&7Deposit a part of your money into the bank"
+deposInvLore3-2: "&7Amount to deposit: "
+# Withdraw Inv
+withdrawInvName1: "&aWithdraw 100%"
+withdrawInvLore1-1: "&7Withdraw all of your money from the bank"
+withdrawInvLore1-2: "&7Amount to withdraw: "
+withdrawInvName2: "&aWithdraw 50%"
+withdrawInvLore2-1: "&7Withdraw half of your money from the bank"
+withdrawInvLore2-2: "&7Amount to withdraw: "
+withdrawInvName3: "&aWithdraw 10%"
+withdrawInvLore3-1: "&7Withdraw a part of your money from the bank"
+withdrawInvLore3-2: "&7Amount to withdraw: "
+# Go back button
+goBack: "&cGo Back"
+# Banker NPC Name ( Default one ) ( NOT IMPLEMENTED INTO PLUGIN YET, FUTURE FEATURE )
+bankerNPC: "&8Banker"
+# Message that is sent after NPC is created successfully
+npcCreateMessage: "&l&8(&2!&8) &cBanker NPC created successfully!"

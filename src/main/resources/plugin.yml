@@ -4,4 +4,9 @@ main: me.souprpk.main.Banker
 api-version: 1.13
 prefix: Banker
 depend: [ Vault ]
+softdepend: [EconomyPlus, Essentials]
 authors: [ SouprPK ]
+
+commands:
+  banker:
+  bank:
