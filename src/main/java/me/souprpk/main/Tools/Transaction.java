@@ -26,7 +26,7 @@ public class Transaction {
     }
 
     private void handleDeposit(){
-        if(banker.mySQL.isConnected()){
+        if(banker.getConfig().getString("main.storage-system").equals("mysql")){
             banker.data.deposit(uuid, amount);
             return;
         }
@@ -35,7 +35,7 @@ public class Transaction {
     }
 
     private void handleWithdraw(){
-        if(banker.mySQL.isConnected()){
+        if(banker.getConfig().getString("main.storage-system").equals("mysql")){
             banker.data.withdraw(uuid, amount);
             return;
         }

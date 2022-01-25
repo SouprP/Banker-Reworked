@@ -3,6 +3,7 @@ package me.souprpk.main;
 import me.souprpk.main.Commands.BankerCommand;
 import me.souprpk.main.ConfigFiles.FlatFileStorageConfig;
 import me.souprpk.main.ConfigFiles.MessageConfig;
+import me.souprpk.main.Events.InventoryEvent;
 import me.souprpk.main.Systems.Discord.DiscordHandle;
 import me.souprpk.main.Systems.Logging.Logging;
 import me.souprpk.main.Systems.MoneyHandlers.Interest;
@@ -47,6 +48,9 @@ public final class Banker extends JavaPlugin {
         messageConfig = new MessageConfig(main);
         flat = new FlatFileStorageConfig(main);
         interest = new Interest(main);
+        flatData = new FlatFile(main);
+        //discordHandle = new DiscordHandle();
+        logging = new Logging(main);
         if(this.getConfig().getString("main.storage-system").equals("mysql")){
             mySQL = new MySQL(main);
             data = new SQLGetter(main);
@@ -61,16 +65,15 @@ public final class Banker extends JavaPlugin {
             if(mySQL.isConnected()) {
                 Bukkit.getLogger().info("[Banker] Database is connected!");
                 data.createTable();
+                flatData.writeToMySQL();
             }
         }
-        flatData = new FlatFile(main);
-        //discordHandle = new DiscordHandle();
-        logging = new Logging(main);
 
         this.saveDefaultConfig();
         messageConfig.saveDefaultConfig();
         flat.saveDefaultConfig();
 
+        this.getServer().getPluginManager().registerEvents(new InventoryEvent(), this);
         this.getCommand("banker").setExecutor(new BankerCommand());
 
         // Check interest time and increase players money
@@ -84,6 +87,9 @@ public final class Banker extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        if(this.getConfig().getString("main.storage-system").equals("mysql"))
+            data.writeToFlatFile();
+        mySQL.disconnect();
     }
 
     public static Banker getMain(){

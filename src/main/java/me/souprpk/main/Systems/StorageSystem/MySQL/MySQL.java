@@ -20,11 +20,11 @@ public class MySQL {
 
     public MySQL(Banker banker) {
         this.banker = banker;
-        host = banker.getConfig().getString("host");
-        port = banker.getConfig().getString("port");
-        database = banker.getConfig().getString("database");
-        username = banker.getConfig().getString("username");
-        password = banker.getConfig().getString("password");
+        host = banker.getConfig().getString("main.mysql.host");
+        port = banker.getConfig().getString("main.mysql.port");
+        database = banker.getConfig().getString("main.mysql.database");
+        username = banker.getConfig().getString("main.mysql.username");
+        password = banker.getConfig().getString("main.mysql.password");
     }
 
     public boolean isConnected() {

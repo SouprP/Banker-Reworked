@@ -130,7 +130,7 @@ public class BankerGUI {
         List<String> lore2 = new ArrayList<String>();
         ItemMeta m2 = moneyDeposit2.getItemMeta();
         lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-1")));
-        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney / 2);
+        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerMoney / 2);
         m2.setLore(lore2);
         m2.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName2")));
         moneyDeposit2.setItemMeta(m2);
@@ -141,7 +141,7 @@ public class BankerGUI {
         List<String> lore3 = new ArrayList<String>();
         ItemMeta m3 = moneyDeposit3.getItemMeta();
         lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-1")));
-        lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue()); //playerMoney / 10);
+        lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(10)), 2).doubleValue()); //playerMoney / 10);
         m3.setLore(lore3);
         m3.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName3")));
         moneyDeposit3.setItemMeta(m3);
@@ -197,7 +197,7 @@ public class BankerGUI {
         List<String> lore2 = new ArrayList<String>();
         ItemMeta m2 = moneyDeposit2.getItemMeta();
         lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("withdrawInvLore2-1")));
-        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("withdrawInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerBankMoney.subtract(BigDecimal.valueOf(2)), 2).doubleValue());//playerBankMoney / 2);
+        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("withdrawInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerBankMoney.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerBankMoney / 2);
         m2.setLore(lore2);
         m2.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("withdrawInvName2")));
         moneyDeposit2.setItemMeta(m2);

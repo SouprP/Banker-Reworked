@@ -39,7 +39,7 @@ public class SQLGetter implements StorageSystem {
     public void withdraw(UUID uuid, BigDecimal amount) {
         try {
             PreparedStatement ps = banker.mySQL.getConnection().prepareStatement("UPDATE banker SET MONEY=? WHERE UUID=?");
-            BigDecimal moneyToWithdraw = getMoney(uuid).divide(amount);
+            BigDecimal moneyToWithdraw = amount;
             ps.setDouble(1, getMoney(uuid).subtract(moneyToWithdraw).doubleValue());
             ps.setString(2,  uuid.toString());
             ps.executeUpdate();
@@ -74,10 +74,6 @@ public class SQLGetter implements StorageSystem {
             e.printStackTrace();
         }
         return BigDecimal.valueOf(0);
-    }
-
-    public void writeToFlatFile(){
-
     }
 
     public void createTable() {
@@ -129,4 +125,27 @@ public class SQLGetter implements StorageSystem {
         return false;
     }
 
+    public void writeCustom(String uuid, BigDecimal amount) {
+        try {
+            PreparedStatement ps = banker.mySQL.getConnection().prepareStatement("UPDATE banker SET MONEY=? WHERE UUID=?");
+            ps.setDouble(1, amount.doubleValue());
+            ps.setString(2,  uuid);
+            ps.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeToFlatFile(){
+        try {
+            PreparedStatement ps = banker.mySQL.getConnection().prepareStatement("SELECT UUID, MONEY FROM banker");
+            ResultSet results = ps.executeQuery();
+
+            while(results.next()){
+                banker.flatData.writeCustom(results.getString("UUID"), BigDecimal.valueOf(results.getDouble("MONEY")));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
