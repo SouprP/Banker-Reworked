@@ -15,6 +15,7 @@ public class Logging {
         this.banker = banker;
         createLog();
     }
+
     public void createLog() {
 
         File log = new File(banker.getDataFolder(), "logs");

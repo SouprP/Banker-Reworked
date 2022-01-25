@@ -6,7 +6,7 @@
 
     <groupId>me.souprpk</groupId>
     <artifactId>Banker</artifactId>
-    <version>1.5</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
 
     <name>Banker</name>
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>5.0.0-alpha.4</version>
+            <version>4.4.0_352</version>
         </dependency>
     </dependencies>
 </project>

@@ -4,13 +4,14 @@ main:
   storage-system: "flat"
   # MySQL database setup
   mysql:
-    host:
-    port:
-    database:
-    username:
-    password:
+    host: ""
+    port: ""
+    database: ""
+    username: ""
+    password: ""
   # You can find all the sounds here:
   # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+  # They need to be inside this -> ""
   deposit-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
   withdraw-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
   enable-error: "&cPlugin disabled, something went wrong."
@@ -23,7 +24,7 @@ discord:
   enabled: false
   bot-token: ""
   channel-id: ""
-  min-amount: "5000"
+  min-amount: 5000
 
 money:
   every-hours: 30

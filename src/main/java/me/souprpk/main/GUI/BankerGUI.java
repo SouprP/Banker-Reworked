@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,15 @@ public class BankerGUI {
         else{
             playerBankMoney = banker.flatData.getMoney(player.getUniqueId());
         }
+
+        String date = banker.flat.getConfig().getString("nextInterest");
+        LocalDateTime untilInterest = LocalDateTime.parse(date);
+
+        Duration beet = Duration.between(LocalDateTime.now(), untilInterest);
+
+        int hLeft = (int) (beet.toHours());
+        int mLeft = (int) (beet.toMinutes() - (beet.toHours() * 60));
+        int sLeft = (int) ((beet.toMillis() / 1000) - (beet.toMinutes() * 60));
 
         //// Deposit
         ItemStack moneyDeposit = new ItemStack(Material.CHEST);
@@ -86,6 +97,9 @@ public class BankerGUI {
         loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-1")) + ChatColor.BLUE + interestTime +
                 utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-2")));
         loreI.add(ChatColor.BLUE + "" + interestRate + "%" + utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore3")));
+        loreI.add(" ");
+        loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore4")));
+        loreI.add(ChatColor.BLUE + "" + hLeft + "h " + mLeft + "m " + sLeft + "s" + ChatColor.GRAY + ".");
         mI.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoName")));
         mI.setLore(loreI);
         information.setItemMeta(mI);

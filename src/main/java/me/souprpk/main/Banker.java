@@ -1,6 +1,8 @@
 package me.souprpk.main;
 
+import me.souprpk.main.Commands.BankCommand;
 import me.souprpk.main.Commands.BankerCommand;
+import me.souprpk.main.Commands.CommandsTab;
 import me.souprpk.main.ConfigFiles.FlatFileStorageConfig;
 import me.souprpk.main.ConfigFiles.MessageConfig;
 import me.souprpk.main.Events.InventoryEvent;
@@ -32,7 +34,7 @@ public final class Banker extends JavaPlugin {
     public FlatFile flatData;
     public Logging logging;
     public Interest interest;
-    //public DiscordHandle discordHandle;
+    public DiscordHandle discordHandle;
 
     @Override
     public void onEnable() {
@@ -49,7 +51,6 @@ public final class Banker extends JavaPlugin {
         flat = new FlatFileStorageConfig(main);
         interest = new Interest(main);
         flatData = new FlatFile(main);
-        //discordHandle = new DiscordHandle();
         logging = new Logging(main);
         if(this.getConfig().getString("main.storage-system").equals("mysql")){
             mySQL = new MySQL(main);
@@ -69,12 +70,17 @@ public final class Banker extends JavaPlugin {
             }
         }
 
+        if(this.getConfig().getBoolean("discord.enabled"))
+            discordHandle = new DiscordHandle();
+
         this.saveDefaultConfig();
         messageConfig.saveDefaultConfig();
         flat.saveDefaultConfig();
 
         this.getServer().getPluginManager().registerEvents(new InventoryEvent(), this);
         this.getCommand("banker").setExecutor(new BankerCommand());
+        this.getCommand("bank").setExecutor(new BankCommand());
+        this.getCommand("bank").setTabCompleter(new CommandsTab());;
 
         // Check interest time and increase players money
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
@@ -82,6 +88,8 @@ public final class Banker extends JavaPlugin {
                 interest.checkInterestTime();
             }
         }, 0, 200);
+
+        logging.log("Banker plugin enabled successfully!");
     }
 
     @Override
@@ -89,7 +97,13 @@ public final class Banker extends JavaPlugin {
         // Plugin shutdown logic
         if(this.getConfig().getString("main.storage-system").equals("mysql"))
             data.writeToFlatFile();
-        mySQL.disconnect();
+        if(mySQL != null)
+            if(mySQL.isConnected())
+                mySQL.disconnect();
+
+        if(this.discordHandle.getJda() != null) this.discordHandle.getJda().shutdown();
+
+        logging.log("Banker plugin disabled!");
     }
 
     public static Banker getMain(){

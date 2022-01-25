@@ -9,7 +9,7 @@ bankerMainInv: "&0Banker"
 deposInv: "&0Banker - Deposit"
 withdrawInv: "&0Banker - Withdraw"
 adminInv: "&0Banker Admin GUI"
-# Depos Inv Info
+# Deposit Inv Info
 bankerMainDeposName: "&aDeposit Money"
 bankerMainDeposLore1: "&7Store them in the bank to"
 bankerMainDeposLore2: "&7keep them safe while you go"
@@ -31,6 +31,7 @@ bankerMainInfoLore1: "&7The banker rewards you"
 bankerMainInfoLore2-1: "&7every "
 bankerMainInfoLore2-2: " &7hours with "
 bankerMainInfoLore3: "  &7interest."
+bankerMainInfoLore4: "&7Time left until next interest: "
 # SUB - MENUS
 # Deposit Inv
 deposInvName1: "&aDeposit 100%"

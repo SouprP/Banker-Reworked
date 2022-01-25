@@ -2,7 +2,6 @@ package me.souprpk.main.Systems.StorageSystem.FlatFile;
 
 import me.souprpk.main.Banker;
 import me.souprpk.main.Systems.StorageSystem.StorageSystem;
-import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -41,6 +40,14 @@ public class FlatFile implements StorageSystem {
         if(banker.flat.getConfig().getString("players." + uuid.toString()) != null)
             return true;
         return false;
+    }
+
+    public void interestRateIncrease(BigDecimal interestRate){
+        banker.flat.getConfig().getConfigurationSection("players").getKeys(false).forEach(uuid -> {
+            BigDecimal money = BigDecimal.valueOf(banker.flat.getConfig().getDouble("players." + uuid + ".deposited-money"));
+            money = money.add(money.multiply(interestRate).divide(BigDecimal.valueOf(100)));
+            banker.flat.getConfig().set("players." + uuid + ".deposited-money", money);
+        });
     }
 
     @Override

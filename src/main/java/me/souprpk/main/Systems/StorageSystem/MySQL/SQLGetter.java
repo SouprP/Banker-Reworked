@@ -125,6 +125,26 @@ public class SQLGetter implements StorageSystem {
         return false;
     }
 
+    public void interestRateIncrease(BigDecimal interestRate) {
+        try {
+            PreparedStatement ps = banker.mySQL.getConnection().prepareStatement("SELECT UUID, MONEY FROM banker");
+            ResultSet results = ps.executeQuery();
+            while(results.next()) {
+                String uuid = results.getString(1);
+                BigDecimal money = BigDecimal.valueOf(results.getDouble(2));
+                // interestRate / 100 ===== 5% / 100 ===== money * 0,05
+                money = money.add(money.multiply(interestRate).divide(BigDecimal.valueOf(100)));
+                PreparedStatement ps2 = banker.mySQL.getConnection().prepareStatement("UPDATE banker SET MONEY=? WHERE UUID=?");
+                ps2.setDouble(1, money.doubleValue());
+                ps2.setString(2, uuid);
+                ps2.executeUpdate();
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void writeCustom(String uuid, BigDecimal amount) {
         try {
             PreparedStatement ps = banker.mySQL.getConnection().prepareStatement("UPDATE banker SET MONEY=? WHERE UUID=?");
