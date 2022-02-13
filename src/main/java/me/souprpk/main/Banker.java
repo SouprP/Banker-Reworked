@@ -1,8 +1,6 @@
 package me.souprpk.main;
 
-import me.souprpk.main.Commands.BankCommand;
-import me.souprpk.main.Commands.BankerCommand;
-import me.souprpk.main.Commands.CommandsTab;
+import me.souprpk.main.Commands.*;
 import me.souprpk.main.ConfigFiles.FlatFileStorageConfig;
 import me.souprpk.main.ConfigFiles.MessageConfig;
 import me.souprpk.main.Events.InventoryEvent;
@@ -13,6 +11,7 @@ import me.souprpk.main.Systems.StorageSystem.FlatFile.FlatFile;
 import me.souprpk.main.Systems.StorageSystem.MySQL.MySQL;
 import me.souprpk.main.Systems.StorageSystem.MySQL.SQLGetter;
 import net.milkbowl.vault.economy.Economy;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -35,6 +34,7 @@ public final class Banker extends JavaPlugin {
     public Logging logging;
     public Interest interest;
     public DiscordHandle discordHandle;
+    private final int pluginId = 11913;
 
     @Override
     public void onEnable() {
@@ -79,8 +79,9 @@ public final class Banker extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new InventoryEvent(), this);
         this.getCommand("banker").setExecutor(new BankerCommand());
+        this.getCommand("banker").setTabCompleter(new BankerCommandTab());
         this.getCommand("bank").setExecutor(new BankCommand());
-        this.getCommand("bank").setTabCompleter(new CommandsTab());;
+        this.getCommand("bank").setTabCompleter(new BankCommandTab());;
 
         // Check interest time and increase players money
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
@@ -89,6 +90,7 @@ public final class Banker extends JavaPlugin {
             }
         }, 0, 200);
 
+        Metrics metrics = new Metrics(this, pluginId);
         logging.log("Banker plugin enabled successfully!");
     }
 

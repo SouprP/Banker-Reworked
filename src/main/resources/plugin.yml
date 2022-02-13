@@ -10,3 +10,9 @@ authors: [ SouprPK ]
 commands:
   banker:
   bank:
+    permission: banker.admin
+
+permissions:
+  banker.admin:
+    description: Allows use of admin commands
+    default: op

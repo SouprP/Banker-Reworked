@@ -1,9 +1,11 @@
 package me.souprpk.main.Systems.StorageSystem.FlatFile;
 
+import com.google.common.collect.Maps;
 import me.souprpk.main.Banker;
 import me.souprpk.main.Systems.StorageSystem.StorageSystem;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.UUID;
 
 public class FlatFile implements StorageSystem {
@@ -64,5 +66,14 @@ public class FlatFile implements StorageSystem {
         banker.flat.getConfig().getConfigurationSection("players").getKeys(false).forEach(uuid -> {
             banker.data.writeCustom(uuid, BigDecimal.valueOf(banker.flat.getConfig().getDouble("players." + uuid + ".deposited-money")));
         });
+    }
+
+    @Override
+    public Map<String, BigDecimal> getTopInfo() {
+        Map<String, BigDecimal> map = Maps.newHashMap();
+        banker.flat.getConfig().getConfigurationSection("players").getKeys(false).forEach(uuid -> {
+            map.put(uuid, BigDecimal.valueOf(banker.flat.getConfig().getDouble("players." + uuid + ".deposited-money")));
+        });
+        return map;
     }
 }

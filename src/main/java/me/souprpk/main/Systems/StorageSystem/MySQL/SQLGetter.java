@@ -1,5 +1,6 @@
 package me.souprpk.main.Systems.StorageSystem.MySQL;
 
+import com.google.common.collect.Maps;
 import me.souprpk.main.Banker;
 import me.souprpk.main.Systems.StorageSystem.StorageSystem;
 import org.bukkit.entity.Player;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.UUID;
 
 public class SQLGetter implements StorageSystem {
@@ -167,5 +169,21 @@ public class SQLGetter implements StorageSystem {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Map<String, BigDecimal> getTopInfo(){
+        Map<String, BigDecimal> map = Maps.newHashMap();
+        try {
+            PreparedStatement ps = banker.mySQL.getConnection().prepareStatement("SELECT UUID, MONEY FROM banker");
+            ResultSet results = ps.executeQuery();
+
+            while(results.next()){
+                map.put(results.getString("UUID"), BigDecimal.valueOf(results.getDouble("MONEY")));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 }
