@@ -59,3 +59,5 @@ goBack: "&cGo Back"
 bankerNPC: "&8Banker"
 # Message that is sent after NPC is created successfully
 npcCreateMessage: "&l&8(&2!&8) &cBanker NPC created successfully!"
+# /banker top command first line
+bankerTop: "&8Top 10 bank accounts:"

@@ -1,5 +1,5 @@
 main:
-  prefix: "&8[aBanker&8] "
+  prefix: "&8[&aBanker&8] "
   # Storage systems: flat || mysql
   storage-system: "flat"
   # MySQL database setup
