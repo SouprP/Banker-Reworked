@@ -10,10 +10,12 @@ import me.souprpk.main.Systems.MoneyHandlers.Interest;
 import me.souprpk.main.Systems.StorageSystem.FlatFile.FlatFile;
 import me.souprpk.main.Systems.StorageSystem.MySQL.MySQL;
 import me.souprpk.main.Systems.StorageSystem.MySQL.SQLGetter;
+import me.souprpk.main.Tools.UpdateChecker;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -92,6 +94,15 @@ public final class Banker extends JavaPlugin {
 
         Metrics metrics = new Metrics(this, pluginId);
         logging.log("Banker plugin enabled successfully!");
+
+        new UpdateChecker(this, 99521).getVersion(version -> {
+            //Bukkit.getConsoleSender().sendMessage(Color.GREEN + "Banker version: " + version);
+            if (this.getDescription().getVersion().equals(version)) {
+                getLogger().info("There is no new update available.");
+            } else {
+                getLogger().info("There is a new update available!");
+            }
+        });
     }
 
     @Override

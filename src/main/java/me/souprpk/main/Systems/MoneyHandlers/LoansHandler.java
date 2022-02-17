@@ -13,7 +13,11 @@ public class LoansHandler {
 
     }
 
-    private void payUpLoan(UUID uuid, BigDecimal amount){
+    public void payUpLoan(UUID uuid, BigDecimal amount){
+
+    }
+
+    public void increaseDebt(UUID uuid, BigDecimal amount){
 
     }
 }
