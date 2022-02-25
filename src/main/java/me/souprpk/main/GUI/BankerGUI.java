@@ -124,7 +124,7 @@ public class BankerGUI {
     }
 
     public void createDeposInv(Player player) {
-        depositInv = Bukkit.createInventory(null, 36, utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInv")));
+        depositInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-deposit")));
 
         BigDecimal playerMoney = utils.getMoney(player);
 
@@ -184,7 +184,7 @@ public class BankerGUI {
     }
 
     public void createWithdrawInv(Player player) {
-        withdrawInv = Bukkit.createInventory(null, 36, utils.Translate(banker.getMain().messageConfig.getConfig().getString("withdrawInv")));
+        withdrawInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-withdraw")));
 
         BigDecimal playerBankMoney;
         if(banker.getConfig().getString("main.storage-system").equals("mysql")){
@@ -248,6 +248,46 @@ public class BankerGUI {
         withdrawInv.setItem(13, moneyDeposit2);
         withdrawInv.setItem(15, moneyDeposit3);
         withdrawInv.setItem(31, goBack);
+    }
+
+    public void createLoanInventory(Player player){
+        depositInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-loan")));
+
+        BigDecimal firstLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.first-loan"));
+        BigDecimal secondLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.second-loan"));
+        BigDecimal thirdLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.third-loan"));
+
+        //// Take loan
+        ItemStack moneyToLoan = new ItemStack(Material.LIME_STAINED_GLASS);
+        List<String> lore1 = new ArrayList<String>();
+        ItemMeta m1 = moneyToLoan.getItemMeta();
+        lore1.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("loansTakeInfo")) + ChatColor.GOLD + utils.truncateDecimal(firstLoan, 2) + ChatColor.DARK_GRAY + ".");//playerMoney);
+        m1.setLore(lore1);
+        m1.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("loansTakeName")));
+        moneyToLoan.setItemMeta(m1);
+
+        // Go back
+        ItemStack goBack = new ItemStack(Material.ARROW);
+        ItemMeta arrowMeta = goBack.getItemMeta();
+        //List<String> loreA = new ArrayList<String>();
+        //loreA.add(ChatColor.GRAY + "Do ");
+        arrowMeta.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("goBack")));
+        goBack.setItemMeta(arrowMeta);
+
+        //// GLASS PANE
+        ItemStack glass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta mG = glass.getItemMeta();
+        mG.setDisplayName(" ");
+        glass.setItemMeta(mG);
+
+        for(int i = 0; i < 36; i++) {
+            depositInv.setItem(i, glass);
+        }
+
+        depositInv.setItem(11, moneyToLoan);
+        //depositInv.setItem(13, moneyDeposit2);
+        //depositInv.setItem(15, moneyDeposit3);
+        depositInv.setItem(31, goBack);
     }
 
     public void resetInv(Player player){

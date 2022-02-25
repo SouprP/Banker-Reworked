@@ -4,11 +4,7 @@ mysql-error: "&l&8(&c!&8) &cYou can't use this command because the plugin is not
 npcErrorMessage: "&l&8(&c!&8) &cAn error occured, could not get the skin, creating an NPC with default config skin!"
 npcRemoveErrorMessage: "&l&8(&c!&8) &cCould not get entity, did you put the right id? Check the id the console or enable 'showId' in the config to see it chat!"
 noPermissions: "&l&8(&c!&8) &cYou dont have permission to use this command!"
-# MAIN MENU
-bankerMainInv: "&0Banker"
-deposInv: "&0Banker - Deposit"
-withdrawInv: "&0Banker - Withdraw"
-adminInv: "&0Banker Admin GUI"
+loan-error: "&l&8(&c!&8) &c You have already taken a loan! You can't take another one."
 # Deposit Inv Info
 bankerMainDeposName: "&aDeposit Money"
 bankerMainDeposLore1: "&7Store them in the bank to"
@@ -53,6 +49,11 @@ withdrawInvLore2-2: "&7Amount to withdraw: "
 withdrawInvName3: "&aWithdraw 10%"
 withdrawInvLore3-1: "&7Withdraw a part of your money from the bank"
 withdrawInvLore3-2: "&7Amount to withdraw: "
+# Loans Inv
+loansTakeName: "&aTake Loan"
+loansTakeInfo: "&7Loans you "
+debtName: "&aPay up 100% of debt"
+debtInfo: "&7Amount of debt to pay."
 # Go back button
 goBack: "&cGo Back"
 # Banker NPC Name ( Default one ) ( NOT IMPLEMENTED INTO PLUGIN YET, FUTURE FEATURE )

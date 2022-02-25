@@ -19,6 +19,7 @@ main:
     banker-main: "&0Banker"
     banker-deposit: "&0Banker - Deposit"
     banker-withdraw: "&0Banker - Withdraw"
+    banker-loan: "&0Banker - Loans"
 
 discord:
   enabled: false
@@ -30,6 +31,7 @@ money:
   every-hours: 30
   interest-rate: 2.0
   loans-on: true
+  loan-interest-rate: 10.0
   loans:
     first-loan: 1000.0
     second-loan: 2500.0

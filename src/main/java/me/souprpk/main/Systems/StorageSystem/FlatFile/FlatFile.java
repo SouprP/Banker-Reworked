@@ -19,7 +19,6 @@ public class FlatFile implements StorageSystem {
     @Override
     public void deposit(UUID uuid, BigDecimal amount) {
         BigDecimal money = BigDecimal.valueOf(banker.flat.getConfig().getDouble("players." + uuid.toString() + ".deposited-money"));
-
         banker.flat.getConfig().set("players." + uuid.toString() + ".deposited-money", money.add(amount));
         banker.flat.saveConfig();
     }
