@@ -15,6 +15,7 @@ main:
   deposit-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
   withdraw-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
   enable-error: "&cPlugin disabled, something went wrong."
+  # GUI names
   gui-display-name:
     banker-main: "&0Banker"
     banker-deposit: "&0Banker - Deposit"
@@ -28,8 +29,17 @@ discord:
   min-amount: 5000
 
 money:
+  # Interest rates
   every-hours: 30
   interest-rate: 2.0
+  # Money loss on death
+  money-loss:
+    enabled: false
+    percentage-based: true
+    percentage amount: 50
+    amount-based: false
+    amount-loss: 100
+  # Loans
   loans-on: true
   loan-interest-rate: 10.0
   loans:

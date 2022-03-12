@@ -3,6 +3,7 @@ package me.souprpk.main;
 import me.souprpk.main.Commands.*;
 import me.souprpk.main.ConfigFiles.FlatFileStorageConfig;
 import me.souprpk.main.ConfigFiles.MessageConfig;
+import me.souprpk.main.Events.DeathEvent;
 import me.souprpk.main.Events.InventoryEvent;
 import me.souprpk.main.Systems.Discord.DiscordHandle;
 import me.souprpk.main.Systems.Logging.Logging;
@@ -82,6 +83,7 @@ public final class Banker extends JavaPlugin {
         flat.saveDefaultConfig();
 
         this.getServer().getPluginManager().registerEvents(new InventoryEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new DeathEvent(), this);
         this.getCommand("banker").setExecutor(new BankerCommand());
         this.getCommand("banker").setTabCompleter(new BankerCommandTab());
         this.getCommand("bank").setExecutor(new BankCommand());
