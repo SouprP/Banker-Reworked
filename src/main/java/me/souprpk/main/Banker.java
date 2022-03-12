@@ -7,6 +7,7 @@ import me.souprpk.main.Events.InventoryEvent;
 import me.souprpk.main.Systems.Discord.DiscordHandle;
 import me.souprpk.main.Systems.Logging.Logging;
 import me.souprpk.main.Systems.MoneyHandlers.Interest;
+import me.souprpk.main.Systems.MoneyHandlers.LoansHandler;
 import me.souprpk.main.Systems.StorageSystem.FlatFile.FlatFile;
 import me.souprpk.main.Systems.StorageSystem.MySQL.MySQL;
 import me.souprpk.main.Systems.StorageSystem.MySQL.SQLGetter;
@@ -15,7 +16,6 @@ import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +35,7 @@ public final class Banker extends JavaPlugin {
     public FlatFile flatData;
     public Logging logging;
     public Interest interest;
+    public LoansHandler loans;
     public DiscordHandle discordHandle;
     private final int pluginId = 11913;
 
@@ -52,6 +53,7 @@ public final class Banker extends JavaPlugin {
         messageConfig = new MessageConfig(main);
         flat = new FlatFileStorageConfig(main);
         interest = new Interest(main);
+        loans = new LoansHandler(main);
         flatData = new FlatFile(main);
         logging = new Logging(main);
         if(this.getConfig().getString("main.storage-system").equals("mysql")){
@@ -114,7 +116,8 @@ public final class Banker extends JavaPlugin {
             if(mySQL.isConnected())
                 mySQL.disconnect();
 
-        if(this.discordHandle.getJda() != null) this.discordHandle.getJda().shutdown();
+        if(this.getConfig().getBoolean("discord.enabled"))
+            if(this.discordHandle.getJda() != null) this.discordHandle.getJda().shutdown();
 
         logging.log("Banker plugin disabled!");
     }
