@@ -65,7 +65,7 @@ public class BankerCommand implements CommandExecutor {
                             i.getAndIncrement();
                             sender.sendMessage(utils.Translate("&a" + i + ". "
                                     + "&8" + Bukkit.getPlayer(UUID.fromString(k)).getName()
-                                            + ": &a" + v + "$&8."));
+                                            + ": &a" + utils.truncateDecimal(v, 2) + "$&8."));
                         });
                         i.set(0);
                     }catch (Exception e){

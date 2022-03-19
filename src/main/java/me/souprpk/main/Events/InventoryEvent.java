@@ -30,7 +30,7 @@ public class InventoryEvent implements Listener {
             bankMoney = banker.flatData.getMoney(event.getWhoClicked().getUniqueId());
         }
         // Banker Main Inventory
-        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInv")))) {
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-main")))) {
 
             if(event.getCurrentItem() == null) return;
             if(event.getCurrentItem().getItemMeta() == null) return;
@@ -58,7 +58,7 @@ public class InventoryEvent implements Listener {
 
         }
 
-        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.messageConfig.getConfig().getString("deposInv")))) {
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-deposit")))) {
 
             if(event.getCurrentItem() == null) return;
             if(event.getCurrentItem().getItemMeta() == null) return;
@@ -96,7 +96,7 @@ public class InventoryEvent implements Listener {
             }
         }
 
-        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.messageConfig.getConfig().getString("withdrawInv")))) {
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-withdraw")))) {
 
             if(event.getCurrentItem() == null) return;
             if(event.getCurrentItem().getItemMeta() == null) return;

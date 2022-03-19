@@ -118,7 +118,7 @@ public final class Banker extends JavaPlugin {
             if(mySQL.isConnected())
                 mySQL.disconnect();
 
-        if(this.getConfig().getBoolean("discord.enabled"))
+        if(this.discordHandle != null)
             if(this.discordHandle.getJda() != null) this.discordHandle.getJda().shutdown();
 
         logging.log("Banker plugin disabled!");

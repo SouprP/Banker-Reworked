@@ -1,5 +1,5 @@
 # Error and relaod messages
-reload-message: "&l&8(&2!&8) &cBanker plugin reloaded!"
+reload-message: "&l&8(&2!&8) &aBanker plugin reloaded!"
 mysql-error: "&l&8(&c!&8) &cYou can't use this command because the plugin is not connected to a database!"
 npcErrorMessage: "&l&8(&c!&8) &cAn error occured, could not get the skin, creating an NPC with default config skin!"
 npcRemoveErrorMessage: "&l&8(&c!&8) &cCould not get entity, did you put the right id? Check the id the console or enable 'showId' in the config to see it chat!"
@@ -9,7 +9,7 @@ loan-error: "&l&8(&c!&8) &c You have already taken a loan! You can't take anothe
 bankerMainDeposName: "&aDeposit Money"
 bankerMainDeposLore1: "&7Store them in the bank to"
 bankerMainDeposLore2: "&7keep them safe while you go"
-bankerMainDeposLore3: "&7on a advanture!"
+bankerMainDeposLore3: "&7on a adventure!"
 # Withdraw Inv Info
 bankerMainWithdrawName: "&aWithdraw Money"
 bankerMainWithdrawLore1: "&7Take your money out of the"
@@ -62,3 +62,5 @@ bankerNPC: "&8Banker"
 npcCreateMessage: "&l&8(&2!&8) &cBanker NPC created successfully!"
 # /banker top command first line
 bankerTop: "&8Top 10 bank accounts:"
+# Money loss message
+money-loss-message: "&l&8(&2!&8) &aYou have just lost some of your money!"
