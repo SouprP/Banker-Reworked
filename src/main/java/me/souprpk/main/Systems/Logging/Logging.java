@@ -28,6 +28,7 @@ public class Logging {
 
     public void log(String string){
         try {
+            createLog();
             LocalDateTime now = LocalDateTime.now();
             String date = String.valueOf(now.getYear() + "-" + now.getMonthValue() + "-" + now.getDayOfMonth());
 
