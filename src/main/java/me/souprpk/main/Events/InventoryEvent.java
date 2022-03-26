@@ -8,13 +8,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class InventoryEvent implements Listener {
 
     private Banker banker = Banker.getMain();
     private Utilities utils = new Utilities(banker);
+    public static List<UUID> open = new ArrayList<>();
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
@@ -135,6 +141,21 @@ public class InventoryEvent implements Listener {
 
         }
 
+    }
+
+    @EventHandler
+    public void onOpen(InventoryOpenEvent event){
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-main")))) {
+            open.add(event.getPlayer().getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public void onClose(InventoryCloseEvent event){
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-main")))) {
+            if(open.contains(event.getPlayer().getUniqueId()))
+                open.remove(event.getPlayer().getUniqueId());
+        }
     }
 
 }

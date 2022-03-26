@@ -1,6 +1,7 @@
 package me.souprpk.main.GUI;
 
 import me.souprpk.main.Banker;
+import me.souprpk.main.Events.InventoryEvent;
 import me.souprpk.main.Tools.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -37,14 +39,15 @@ public class BankerGUI {
             playerBankMoney = banker.flatData.getMoney(player.getUniqueId());
         }
 
-        String date = banker.flat.getConfig().getString("nextInterest");
-        LocalDateTime untilInterest = LocalDateTime.parse(date);
+        //// GLASS PANE
+        ItemStack glass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta mG = glass.getItemMeta();
+        mG.setDisplayName(" ");
+        glass.setItemMeta(mG);
 
-        Duration beet = Duration.between(LocalDateTime.now(), untilInterest);
-
-        int hLeft = (int) (beet.toHours());
-        int mLeft = (int) (beet.toMinutes() - (beet.toHours() * 60));
-        int sLeft = (int) ((beet.toMillis() / 1000) - (beet.toMinutes() * 60));
+        for(int i = 0; i < 36; i++) {
+            bankerInv.setItem(i, glass);
+        }
 
         //// Deposit
         ItemStack moneyDeposit = new ItemStack(Material.CHEST);
@@ -88,39 +91,45 @@ public class BankerGUI {
         mC.setLore(loreC);
         exit.setItemMeta(mC);
 
+        new BukkitRunnable(){
+            public void run(){
+                if(InventoryEvent.open.contains(player.getUniqueId())){
+                    //// Info
+                    String date = banker.flat.getConfig().getString("nextInterest");
+                    LocalDateTime untilInterest = LocalDateTime.parse(date);
 
-        //// Info
-        ItemStack information = new ItemStack(Material.REDSTONE_TORCH);
-        List<String> loreI = new ArrayList<String>();
-        ItemMeta mI = information.getItemMeta();
-        loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore1")));
-        loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-1")) + ChatColor.BLUE + interestTime +
-                utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-2")));
-        loreI.add(ChatColor.BLUE + "" + interestRate + "%" + utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore3")));
-        loreI.add(" ");
-        loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore4")));
-        loreI.add(ChatColor.BLUE + "" + hLeft + "h " + mLeft + "m " + sLeft + "s" + ChatColor.GRAY + ".");
-        mI.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoName")));
-        mI.setLore(loreI);
-        information.setItemMeta(mI);
+                    Duration beet = Duration.between(LocalDateTime.now(), untilInterest);
 
+                    int hLeft = (int) (beet.toHours());
+                    int mLeft = (int) (beet.toMinutes() - (beet.toHours() * 60));
+                    int sLeft = (int) ((beet.toMillis() / 1000) - (beet.toMinutes() * 60));
 
-        //// GLASS PANE
-        ItemStack glass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-        ItemMeta mG = glass.getItemMeta();
-        mG.setDisplayName(" ");
-        glass.setItemMeta(mG);
+                    ItemStack information = new ItemStack(Material.REDSTONE_TORCH);
+                    List<String> loreI = new ArrayList<String>();
+                    ItemMeta mI = information.getItemMeta();
+                    loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore1")));
+                    loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-1")) + ChatColor.BLUE + interestTime +
+                            utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-2")));
+                    loreI.add(ChatColor.BLUE + "" + interestRate + "%" + utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore3")));
+                    loreI.add(" ");
+                    loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore4")));
+                    loreI.add(ChatColor.BLUE + "" + hLeft + "h " + mLeft + "m " + sLeft + "s" + ChatColor.GRAY + ".");
+                    mI.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoName")));
+                    mI.setLore(loreI);
+                    information.setItemMeta(mI);
+                    bankerInv.setItem(32, information);
+                }else{
+                    this.cancel();
+                }
+            }
+        }.runTaskTimerAsynchronously(banker, 0,20L);
 
-        for(int i = 0; i < 36; i++) {
-            bankerInv.setItem(i, glass);
-        }
 
         //bankerMainInv.setItem(0, space);
         bankerInv.setItem(11, moneyDeposit);
         bankerInv.setItem(13, moneyWithdraw);
         bankerInv.setItem(15, moneyInBank);
         bankerInv.setItem(31, exit);
-        bankerInv.setItem(32, information);
     }
 
     public void createDeposInv(Player player) {
