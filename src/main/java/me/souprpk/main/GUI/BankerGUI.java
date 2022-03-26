@@ -93,7 +93,7 @@ public class BankerGUI {
 
         new BukkitRunnable(){
             public void run(){
-                if(InventoryEvent.open.contains(player.getUniqueId())){
+                if(InventoryEvent.open.contains(player.getUniqueId()) && player.isOnline()){
                     //// Info
                     String date = banker.flat.getConfig().getString("nextInterest");
                     LocalDateTime untilInterest = LocalDateTime.parse(date);
