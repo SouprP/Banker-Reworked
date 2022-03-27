@@ -32,12 +32,13 @@ public class Transaction {
     }
 
     private void handleDeposit(){
+        Utilities utils = new Utilities(banker);
         if(amount.compareTo(minDiscordAmount) == 1)
             if(banker.discordHandle != null)
-                banker.discordHandle.sendMessage(Bukkit.getPlayer(uuid), ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) +" deposited " + amount + "$.", true, Color.GRAY);
+                banker.discordHandle.sendMessage(Bukkit.getPlayer(uuid), ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) +" deposited " + utils.truncateDecimal(amount, 2) + "$.", true, Color.GRAY);
 
         playSound(Bukkit.getPlayer(uuid), TransactionType.Deposit);
-        banker.logging.log(ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) +" deposited " + amount + "$.");
+        banker.logging.log(ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) +" deposited " + utils.truncateDecimal(amount, 2) + "$.");
         if(banker.getConfig().getString("main.storage-system").equals("mysql")){
             banker.data.deposit(uuid, amount);
             return;
@@ -47,12 +48,13 @@ public class Transaction {
     }
 
     private void handleWithdraw(){
+        Utilities utils = new Utilities(banker);
         if(amount.compareTo(minDiscordAmount) == 1)
             if(banker.discordHandle != null)
-                banker.discordHandle.sendMessage(Bukkit.getPlayer(uuid), ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) + " withdrew " + amount + "$.", true, Color.GRAY);
+                banker.discordHandle.sendMessage(Bukkit.getPlayer(uuid), ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) + " withdrew " + utils.truncateDecimal(amount, 2) + "$.", true, Color.GRAY);
 
         playSound(Bukkit.getPlayer(uuid), TransactionType.Withdraw);
-        banker.logging.log(ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) +" withdrew " + amount + "$.");
+        banker.logging.log(ChatColor.stripColor(Bukkit.getPlayer(uuid).getDisplayName()) +" withdrew " + utils.truncateDecimal(amount, 2) + "$.");
         if(banker.getConfig().getString("main.storage-system").equals("mysql")){
             banker.data.withdraw(uuid, amount);
             return;
