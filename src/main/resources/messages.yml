@@ -52,8 +52,13 @@ withdrawInvLore3-2: "&7Amount to withdraw: "
 # Loans Inv
 loansTakeName: "&aTake Loan"
 loansTakeInfo: "&7Loans you "
-debtName: "&aPay up 100% of debt"
-debtInfo: "&7Amount of debt to pay."
+# Debt Inv
+debtPayName1: "&aPay up 100%"
+debtPayLore1-1: "&aPay up 100% of your debt"
+deptPayName2: "&aPay up 50% of debt"
+deptPayLore1-1:
+deptPayName3: "&aPay up 10% of debt"
+debtPayInfoLore: "&7Amount of debt you will pay up: "
 # Go back button
 goBack: "&cGo Back"
 # Banker NPC Name ( Default one ) ( NOT IMPLEMENTED INTO PLUGIN YET, FUTURE FEATURE )

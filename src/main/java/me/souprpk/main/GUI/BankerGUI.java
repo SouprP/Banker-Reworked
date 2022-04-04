@@ -23,14 +23,16 @@ public class BankerGUI {
     public Inventory bankerInv;
     public Inventory depositInv;
     public Inventory withdrawInv;
+    public Inventory loanInv;
+    public Inventory debtInv;
 
-    private Banker banker = Banker.getMain();
-    private Utilities utils = new Utilities(banker);
+    private final Banker banker = Banker.getMain();
+    private final Utilities utils = new Utilities(banker);
 
     public void createBankerInv(Player player){
         bankerInv = Bukkit.createInventory(player, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-main")));
-        int interestTime = banker.getMain().getConfig().getInt("money.every-hours");
-        double interestRate = banker.getMain().getConfig().getDouble("money.interest-rate");
+        int interestTime = banker.getConfig().getInt("money.every-hours");
+        double interestRate = banker.getConfig().getDouble("money.interest-rate");
         BigDecimal playerBankMoney;
         if(banker.getConfig().getString("main.storage-system").equals("mysql")){
             playerBankMoney = banker.data.getMoney(player.getUniqueId());
@@ -53,10 +55,10 @@ public class BankerGUI {
         ItemStack moneyDeposit = new ItemStack(Material.CHEST);
         List<String> loreD = new ArrayList<String>();
         ItemMeta mD = moneyDeposit.getItemMeta();
-        loreD.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainDeposLore1")));
-        loreD.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainDeposLore2")));
-        loreD.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainDeposLore3")));
-        mD.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainDeposName")));
+        loreD.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainDeposLore1")));
+        loreD.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainDeposLore2")));
+        loreD.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainDeposLore3")));
+        mD.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainDeposName")));
         mD.setLore(loreD);
         moneyDeposit.setItemMeta(mD);
 
@@ -64,10 +66,10 @@ public class BankerGUI {
         ItemStack moneyWithdraw = new ItemStack(Material.DISPENSER);
         List<String> loreW = new ArrayList<String>();
         ItemMeta mW = moneyWithdraw.getItemMeta();
-        loreW.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainWithdrawLore1")));
-        loreW.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainWithdrawLore2")));
-        loreW.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainWithdrawLore3")));
-        mW.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainWithdrawName")));
+        loreW.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainWithdrawLore1")));
+        loreW.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainWithdrawLore2")));
+        loreW.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainWithdrawLore3")));
+        mW.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainWithdrawName")));
         mW.setLore(loreW);
         moneyWithdraw.setItemMeta(mW);
 
@@ -77,9 +79,9 @@ public class BankerGUI {
         ItemStack moneyInBank = new ItemStack(Material.GOLD_INGOT);
         List<String> loreB = new ArrayList<String>();
         ItemMeta mB = moneyInBank.getItemMeta();
-        loreB.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentLore1")));
-        loreB.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentLore2")) + ChatColor.GOLD + utils.truncateDecimal(playerBankMoney, 2));
-        mB.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainCurrentName")));
+        loreB.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainCurrentLore1")));
+        loreB.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainCurrentLore2")) + ChatColor.GOLD + utils.truncateDecimal(playerBankMoney, 2));
+        mB.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainCurrentName")));
         mB.setLore(loreB);
         moneyInBank.setItemMeta(mB);
 
@@ -87,7 +89,7 @@ public class BankerGUI {
         ItemStack exit = new ItemStack(Material.BARRIER);
         List<String> loreC = new ArrayList<String>();
         ItemMeta mC = exit.getItemMeta();
-        mC.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainClose")));
+        mC.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainClose")));
         mC.setLore(loreC);
         exit.setItemMeta(mC);
 
@@ -107,14 +109,14 @@ public class BankerGUI {
                     ItemStack information = new ItemStack(Material.REDSTONE_TORCH);
                     List<String> loreI = new ArrayList<String>();
                     ItemMeta mI = information.getItemMeta();
-                    loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore1")));
-                    loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-1")) + ChatColor.BLUE + interestTime +
-                            utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore2-2")));
-                    loreI.add(ChatColor.BLUE + "" + interestRate + "%" + utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore3")));
+                    loreI.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInfoLore1")));
+                    loreI.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInfoLore2-1")) + ChatColor.BLUE + interestTime +
+                            utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInfoLore2-2")));
+                    loreI.add(ChatColor.BLUE + "" + interestRate + "%" + utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInfoLore3")));
                     loreI.add(" ");
-                    loreI.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoLore4")));
+                    loreI.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInfoLore4")));
                     loreI.add(ChatColor.BLUE + "" + hLeft + "h " + mLeft + "m " + sLeft + "s" + ChatColor.GRAY + ".");
-                    mI.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("bankerMainInfoName")));
+                    mI.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainInfoName")));
                     mI.setLore(loreI);
                     information.setItemMeta(mI);
                     bankerInv.setItem(32, information);
@@ -141,10 +143,10 @@ public class BankerGUI {
         ItemStack moneyDeposit = new ItemStack(Material.CHEST, 64);
         List<String> lore1 = new ArrayList<String>();
         ItemMeta m1 = moneyDeposit.getItemMeta();
-        lore1.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore1-1")));
-        lore1.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore1-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney);
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore1-1")));
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore1-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney);
         m1.setLore(lore1);
-        m1.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName1")));
+        m1.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName1")));
         moneyDeposit.setItemMeta(m1);
 
 
@@ -152,10 +154,10 @@ public class BankerGUI {
         ItemStack moneyDeposit2 = new ItemStack(Material.CHEST, 32);
         List<String> lore2 = new ArrayList<String>();
         ItemMeta m2 = moneyDeposit2.getItemMeta();
-        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-1")));
-        lore2.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerMoney / 2);
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore2-1")));
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerMoney / 2);
         m2.setLore(lore2);
-        m2.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName2")));
+        m2.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName2")));
         moneyDeposit2.setItemMeta(m2);
 
 
@@ -163,17 +165,17 @@ public class BankerGUI {
         ItemStack moneyDeposit3 = new ItemStack(Material.CHEST, 1);
         List<String> lore3 = new ArrayList<String>();
         ItemMeta m3 = moneyDeposit3.getItemMeta();
-        lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-1")));
-        lore3.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(10)), 2).doubleValue()); //playerMoney / 10);
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore3-1")));
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(10)), 2).doubleValue()); //playerMoney / 10);
         m3.setLore(lore3);
-        m3.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("deposInvName3")));
+        m3.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName3")));
         moneyDeposit3.setItemMeta(m3);
 
         ItemStack goBack = new ItemStack(Material.ARROW);
         ItemMeta arrowMeta = goBack.getItemMeta();
         //List<String> loreA = new ArrayList<String>();
         //loreA.add(ChatColor.GRAY + "Do ");
-        arrowMeta.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("goBack")));
+        arrowMeta.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("goBack")));
         goBack.setItemMeta(arrowMeta);
 
         //// GLASS PANE
@@ -259,8 +261,8 @@ public class BankerGUI {
         withdrawInv.setItem(31, goBack);
     }
 
-    public void createLoanInventory(Player player){
-        depositInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-loan")));
+    public void createLoanInv(Player player){
+        loanInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-loan")));
 
         BigDecimal firstLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.first-loan"));
         BigDecimal secondLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.second-loan"));
@@ -270,9 +272,9 @@ public class BankerGUI {
         ItemStack moneyToLoan = new ItemStack(Material.LIME_STAINED_GLASS);
         List<String> lore1 = new ArrayList<String>();
         ItemMeta m1 = moneyToLoan.getItemMeta();
-        lore1.add(utils.Translate(banker.getMain().messageConfig.getConfig().getString("loansTakeInfo")) + ChatColor.GOLD + utils.truncateDecimal(firstLoan, 2) + ChatColor.DARK_GRAY + ".");//playerMoney);
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeInfo")) + ChatColor.GOLD + utils.truncateDecimal(firstLoan, 2) + ChatColor.DARK_GRAY + ".");//playerMoney);
         m1.setLore(lore1);
-        m1.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("loansTakeName")));
+        m1.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeName")));
         moneyToLoan.setItemMeta(m1);
 
         // Go back
@@ -280,7 +282,7 @@ public class BankerGUI {
         ItemMeta arrowMeta = goBack.getItemMeta();
         //List<String> loreA = new ArrayList<String>();
         //loreA.add(ChatColor.GRAY + "Do ");
-        arrowMeta.setDisplayName(utils.Translate(banker.getMain().messageConfig.getConfig().getString("goBack")));
+        arrowMeta.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("goBack")));
         goBack.setItemMeta(arrowMeta);
 
         //// GLASS PANE
@@ -290,13 +292,74 @@ public class BankerGUI {
         glass.setItemMeta(mG);
 
         for(int i = 0; i < 36; i++) {
-            depositInv.setItem(i, glass);
+            loanInv.setItem(i, glass);
         }
 
-        depositInv.setItem(11, moneyToLoan);
+        loanInv.setItem(11, moneyToLoan);
         //depositInv.setItem(13, moneyDeposit2);
         //depositInv.setItem(15, moneyDeposit3);
-        depositInv.setItem(31, goBack);
+        loanInv.setItem(31, goBack);
+    }
+
+    public void createDebtInv(Player player){
+        debtInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-loan")));
+
+        BigDecimal firstLoan = banker.loans.getDebt(player.getUniqueId());
+
+        //// Dept pay 100%
+        ItemStack debtPay = new ItemStack(Material.CHEST, 64);
+        List<String> lore1 = new ArrayList<String>();
+        ItemMeta m1 = debtPay.getItemMeta();
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore1-1")));
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore1-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney);
+        m1.setLore(lore1);
+        m1.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("debtPayName1")));
+        debtPay.setItemMeta(m1);
+
+
+        //// Dept pay 50%
+        ItemStack debtPay2 = new ItemStack(Material.CHEST, 32);
+        List<String> lore2 = new ArrayList<String>();
+        ItemMeta m2 = debtPay2.getItemMeta();
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore2-1")));
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerMoney / 2);
+        m2.setLore(lore2);
+        m2.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName2")));
+        debtPay2.setItemMeta(m2);
+
+
+        //// Dept pay 10%
+        ItemStack debtPay3 = new ItemStack(Material.CHEST, 1);
+        List<String> lore3 = new ArrayList<String>();
+        ItemMeta m3 = debtPay3.getItemMeta();
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore3-1")));
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(10)), 2).doubleValue()); //playerMoney / 10);
+        m3.setLore(lore3);
+        m3.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName3")));
+        debtPay3.setItemMeta(m3);
+
+        // Go back
+        ItemStack goBack = new ItemStack(Material.ARROW);
+        ItemMeta arrowMeta = goBack.getItemMeta();
+        //List<String> loreA = new ArrayList<String>();
+        //loreA.add(ChatColor.GRAY + "Do ");
+        arrowMeta.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("goBack")));
+        goBack.setItemMeta(arrowMeta);
+
+        //// GLASS PANE
+        ItemStack glass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta mG = glass.getItemMeta();
+        mG.setDisplayName(" ");
+        glass.setItemMeta(mG);
+
+        for(int i = 0; i < 36; i++) {
+            debtInv.setItem(i, glass);
+        }
+
+        debtInv.setItem(11, debtPay);
+        depositInv.setItem(13, debtPay2);
+        depositInv.setItem(15, debtPay3);
+        debtInv.setItem(31, goBack);
     }
 
     public void resetInv(Player player){

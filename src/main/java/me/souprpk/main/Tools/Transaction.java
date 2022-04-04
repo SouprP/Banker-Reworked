@@ -44,7 +44,6 @@ public class Transaction {
             return;
         }
         banker.flatData.deposit(uuid, amount);
-        return;
     }
 
     private void handleWithdraw(){
@@ -60,7 +59,6 @@ public class Transaction {
             return;
         }
         banker.flatData.withdraw(uuid, amount);
-        return;
     }
 
     private void playSound(Player player, TransactionType type){
