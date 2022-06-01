@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class LoansHandler {
 
-    private Banker banker;
+    private final Banker banker;
 
     public LoansHandler(Banker banker){
         this.banker = banker;

@@ -6,8 +6,10 @@ import me.souprpk.main.Tools.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -85,6 +87,21 @@ public class BankerGUI {
         mB.setLore(loreB);
         moneyInBank.setItemMeta(mB);
 
+
+
+        //// Loan / debt menu
+        ItemStack loanDebt = new ItemStack(Material.PAPER);
+        List<String> loreLD = new ArrayList<String>();
+        ItemMeta mLD = moneyInBank.getItemMeta();
+        loreLD.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainLoansDebtLore1")));
+        loreLD.add(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainLoansDebtLore2")));
+        mLD.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("bankerMainLoansDebtName")));
+        mLD.addEnchant(Enchantment.ARROW_DAMAGE, 1, true);
+        mLD.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        mLD.setLore(loreLD);
+        loanDebt.setItemMeta(mLD);
+
+
         //// Exit
         ItemStack exit = new ItemStack(Material.BARRIER);
         List<String> loreC = new ArrayList<String>();
@@ -132,6 +149,8 @@ public class BankerGUI {
         bankerInv.setItem(13, moneyWithdraw);
         bankerInv.setItem(15, moneyInBank);
         bankerInv.setItem(31, exit);
+        if(banker.getConfig().getBoolean("money.loans-on"))
+            bankerInv.setItem(29, loanDebt);
     }
 
     public void createDeposInv(Player player) {
@@ -277,6 +296,24 @@ public class BankerGUI {
         m1.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeName")));
         moneyToLoan.setItemMeta(m1);
 
+        //// Take loan 2
+        ItemStack moneyToLoan2 = new ItemStack(Material.LIME_STAINED_GLASS);
+        List<String> lore2 = new ArrayList<String>();
+        ItemMeta m2 = moneyToLoan2.getItemMeta();
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeInfo")) + ChatColor.GOLD + utils.truncateDecimal(secondLoan, 2) + ChatColor.DARK_GRAY + ".");//playerMoney);
+        m2.setLore(lore2);
+        m2.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeName")));
+        moneyToLoan2.setItemMeta(m2);
+
+        //// Take loan 3
+        ItemStack moneyToLoan3 = new ItemStack(Material.LIME_STAINED_GLASS);
+        List<String> lore3 = new ArrayList<String>();
+        ItemMeta m3 = moneyToLoan3.getItemMeta();
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeInfo")) + ChatColor.GOLD + utils.truncateDecimal(thirdLoan, 2) + ChatColor.DARK_GRAY + ".");//playerMoney);
+        m3.setLore(lore3);
+        m3.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("loansTakeName")));
+        moneyToLoan3.setItemMeta(m3);
+
         // Go back
         ItemStack goBack = new ItemStack(Material.ARROW);
         ItemMeta arrowMeta = goBack.getItemMeta();
@@ -295,25 +332,26 @@ public class BankerGUI {
             loanInv.setItem(i, glass);
         }
 
-        loanInv.setItem(11, moneyToLoan);
-        //depositInv.setItem(13, moneyDeposit2);
-        //depositInv.setItem(15, moneyDeposit3);
+        loanInv.setItem(11, moneyToLoan3);
+        loanInv.setItem(13, moneyToLoan2);
+        loanInv.setItem(15, moneyToLoan);
         loanInv.setItem(31, goBack);
     }
 
     public void createDebtInv(Player player){
-        debtInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-loan")));
+        debtInv = Bukkit.createInventory(null, 36, utils.Translate(utils.getConfigString("main.gui-display-name.banker-debt")));
 
-        BigDecimal firstLoan = banker.loans.getDebt(player.getUniqueId());
+        BigDecimal debt = banker.loans.getDebt(player.getUniqueId());
+        utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore1-1"), 2);
 
         //// Dept pay 100%
         ItemStack debtPay = new ItemStack(Material.CHEST, 64);
         List<String> lore1 = new ArrayList<String>();
         ItemMeta m1 = debtPay.getItemMeta();
-        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore1-1")));
-        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore1-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney, 2).doubleValue());//playerMoney);
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore1-1")));
+        lore1.add(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore1-2")) + ChatColor.GOLD + utils.truncateDecimal(debt, 2).doubleValue());//playerMoney);
         m1.setLore(lore1);
-        m1.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("debtPayName1")));
+        m1.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayName1")));
         debtPay.setItemMeta(m1);
 
 
@@ -321,10 +359,10 @@ public class BankerGUI {
         ItemStack debtPay2 = new ItemStack(Material.CHEST, 32);
         List<String> lore2 = new ArrayList<String>();
         ItemMeta m2 = debtPay2.getItemMeta();
-        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore2-1")));
-        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerMoney / 2);
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore2-1")));
+        lore2.add(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore2-2")) + ChatColor.GOLD + utils.truncateDecimal(debt.divide(BigDecimal.valueOf(2)), 2).doubleValue());//playerMoney / 2);
         m2.setLore(lore2);
-        m2.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName2")));
+        m2.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayName2")));
         debtPay2.setItemMeta(m2);
 
 
@@ -332,10 +370,10 @@ public class BankerGUI {
         ItemStack debtPay3 = new ItemStack(Material.CHEST, 1);
         List<String> lore3 = new ArrayList<String>();
         ItemMeta m3 = debtPay3.getItemMeta();
-        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore3-1")));
-        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("deposInvLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(playerMoney.divide(BigDecimal.valueOf(10)), 2).doubleValue()); //playerMoney / 10);
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore3-1")));
+        lore3.add(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayLore3-2")) + ChatColor.GOLD + utils.truncateDecimal(debt.divide(BigDecimal.valueOf(10)), 2).doubleValue()); //playerMoney / 10);
         m3.setLore(lore3);
-        m3.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("deposInvName3")));
+        m3.setDisplayName(utils.Translate(banker.messageConfig.getConfig().getString("debtInvPayName3")));
         debtPay3.setItemMeta(m3);
 
         // Go back
@@ -357,8 +395,8 @@ public class BankerGUI {
         }
 
         debtInv.setItem(11, debtPay);
-        depositInv.setItem(13, debtPay2);
-        depositInv.setItem(15, debtPay3);
+        debtInv.setItem(13, debtPay2);
+        debtInv.setItem(15, debtPay3);
         debtInv.setItem(31, goBack);
     }
 

@@ -28,6 +28,10 @@ bankerMainInfoLore2-1: "&7every "
 bankerMainInfoLore2-2: " &7hours with "
 bankerMainInfoLore3: " &7interest."
 bankerMainInfoLore4: "&7Time left until next interest: "
+# Loans and Debt Inv Info
+bankerMainLoansDebtName: "&aLoans and Debt"
+bankerMainLoansDebtLore1: "&7Take loans and pay up"
+bankerMainLoansDebtLore2: "&7your debts."
 # SUB - MENUS
 # Deposit Inv
 deposInvName1: "&aDeposit 100%"
@@ -49,16 +53,19 @@ withdrawInvLore2-2: "&7Amount to withdraw: "
 withdrawInvName3: "&aWithdraw 10%"
 withdrawInvLore3-1: "&7Withdraw a part of your money from the bank"
 withdrawInvLore3-2: "&7Amount to withdraw: "
+# Debt Inv
+debtInvPayName1: "&aPay up 100%"
+debtInvPayLore1-1: "&aPay up 100% of your debt"
+debtInvInvPayLore1-2: "&7Amount of debt you will pay up: "
+deptInvPayName2: "&aPay up 50%"
+deptInvPayLore2-1: "&aPay up 50% of your debt"
+debtInvPayLore2-2: "&7Amount of debt you will pay up: "
+deptInvPayName3: "&aPay up 10%"
+deptInvPayLore3-1: "&aPay up 10% of your debt"
+debtInvPayLore3-2: "&7Amount of debt you will pay up: "
 # Loans Inv
 loansTakeName: "&aTake Loan"
 loansTakeInfo: "&7Loans you "
-# Debt Inv
-debtPayName1: "&aPay up 100%"
-debtPayLore1-1: "&aPay up 100% of your debt"
-deptPayName2: "&aPay up 50% of debt"
-deptPayLore1-1:
-deptPayName3: "&aPay up 10% of debt"
-debtPayInfoLore: "&7Amount of debt you will pay up: "
 # Go back button
 goBack: "&cGo Back"
 # Banker NPC Name ( Default one ) ( NOT IMPLEMENTED INTO PLUGIN YET, FUTURE FEATURE )

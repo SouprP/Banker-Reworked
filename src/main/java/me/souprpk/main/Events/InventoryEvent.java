@@ -58,6 +58,21 @@ public class InventoryEvent implements Listener {
                 gui.createWithdrawInv(player);
                 player.openInventory(gui.withdrawInv);
             }
+
+            if(banker.getConfig().getBoolean("money.loans-on"))
+                if(event.getSlot() == 29){
+                    player.closeInventory();
+
+                    if(banker.loans.getDebt(player.getUniqueId()).compareTo(BigDecimal.ZERO) > 0){
+                        gui.createDebtInv(player);
+                        player.openInventory(gui.debtInv);
+                    }else{
+                        gui.createLoanInv(player);
+                        player.openInventory(gui.loanInv);
+                    }
+
+                }
+
             if(event.getSlot() == 31) {
                 player.closeInventory();
             }
@@ -139,6 +154,52 @@ public class InventoryEvent implements Listener {
                 player.openInventory(gui.bankerInv);
             }
 
+        }
+
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-loan")))){
+            if(event.getCurrentItem() == null) return;
+            if(event.getCurrentItem().getItemMeta() == null) return;
+            if(event.getCurrentItem().getItemMeta().getDisplayName() == null) return;
+
+            event.setCancelled(true);
+
+            BigDecimal firstLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.first-loan"));
+            BigDecimal secondLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.second-loan"));
+            BigDecimal thirdLoan = BigDecimal.valueOf(banker.getConfig().getDouble("money.loans.third-loan"));
+
+            // Loan 100%
+            if(event.getSlot() == 11) {
+                banker.loans.takeLoan(player.getUniqueId(), thirdLoan);
+                gui.resetInv(player);
+
+            }
+
+            // Loan 50%
+            if(event.getSlot() == 13) {
+                banker.loans.takeLoan(player.getUniqueId(), secondLoan);
+                gui.resetInv(player);
+            }
+
+            // Loan 10%
+            if(event.getSlot() == 15) {
+                banker.loans.takeLoan(player.getUniqueId(), firstLoan);
+                gui.resetInv(player);
+            }
+
+            // Wracanie
+            if(event.getSlot() == 31) {
+                player.closeInventory();
+                gui.createBankerInv(player);
+                player.openInventory(gui.bankerInv);
+            }
+        }
+
+        if(event.getView().getTitle().equalsIgnoreCase(utils.Translate(banker.getConfig().getString("main.gui-display-name.banker-debt")))){
+            if(event.getCurrentItem() == null) return;
+            if(event.getCurrentItem().getItemMeta() == null) return;
+            if(event.getCurrentItem().getItemMeta().getDisplayName() == null) return;
+
+            event.setCancelled(true);
         }
 
     }

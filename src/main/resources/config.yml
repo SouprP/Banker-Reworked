@@ -21,6 +21,7 @@ main:
     banker-deposit: "&0Banker - Deposit"
     banker-withdraw: "&0Banker - Withdraw"
     banker-loan: "&0Banker - Loans"
+    banker-debt: "&0Banker - Debt"
 
 discord:
   enabled: false

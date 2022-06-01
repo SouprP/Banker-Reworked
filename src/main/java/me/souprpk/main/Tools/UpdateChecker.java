@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class UpdateChecker {
 
-    private Banker banker;
+    private final Banker banker;
     private final int resourceId;
 
     public UpdateChecker(Banker banker, int resourceId){
