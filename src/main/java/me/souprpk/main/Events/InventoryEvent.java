@@ -29,6 +29,7 @@ public class InventoryEvent implements Listener {
         BankerGUI gui = new BankerGUI();
         Transaction tran;
         BigDecimal bankMoney;
+
         if(banker.getConfig().getString("main.storage-system").equals("mysql")){
             bankMoney = banker.data.getMoney(event.getWhoClicked().getUniqueId());
         }
@@ -59,14 +60,14 @@ public class InventoryEvent implements Listener {
                 player.openInventory(gui.withdrawInv);
             }
 
-            if(banker.getConfig().getBoolean("money.loans-on"))
+            if(banker.getConfig().getBoolean("money.loans.loans-on"))
                 if(event.getSlot() == 29){
                     player.closeInventory();
 
                     if(banker.loans.getDebt(player.getUniqueId()).compareTo(BigDecimal.ZERO) > 0){
                         gui.createDebtInv(player);
                         player.openInventory(gui.debtInv);
-                    }else{
+                    }else {
                         gui.createLoanInv(player);
                         player.openInventory(gui.loanInv);
                     }
@@ -200,6 +201,34 @@ public class InventoryEvent implements Listener {
             if(event.getCurrentItem().getItemMeta().getDisplayName() == null) return;
 
             event.setCancelled(true);
+
+            BigDecimal debt = banker.loans.getDebt(player.getUniqueId());
+
+            // Debt 100%
+            if(event.getSlot() == 11) {
+                banker.loans.payUpDebt(player.getUniqueId(), BigDecimal.valueOf(1));
+                gui.resetInv(player);
+
+            }
+
+            // Debt 50%
+            if(event.getSlot() == 13) {
+                banker.loans.payUpDebt(player.getUniqueId(), BigDecimal.valueOf(2));
+                gui.resetInv(player);
+            }
+
+            // Debt 10%
+            if(event.getSlot() == 15) {
+                banker.loans.payUpDebt(player.getUniqueId(), BigDecimal.valueOf(10));
+                gui.resetInv(player);
+            }
+
+            // Wracanie
+            if(event.getSlot() == 31) {
+                player.closeInventory();
+                gui.createBankerInv(player);
+                player.openInventory(gui.bankerInv);
+            }
         }
 
     }

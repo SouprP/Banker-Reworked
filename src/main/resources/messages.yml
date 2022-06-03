@@ -1,9 +1,9 @@
-# Error and relaod messages
+# Error and reload messages
 reload-message: "&l&8(&2!&8) &aBanker plugin reloaded!"
 mysql-error: "&l&8(&c!&8) &cYou can't use this command because the plugin is not connected to a database!"
-npcErrorMessage: "&l&8(&c!&8) &cAn error occured, could not get the skin, creating an NPC with default config skin!"
+npcErrorMessage: "&l&8(&c!&8) &cAn error occurred, could not get the skin, creating an NPC with default config skin!"
 npcRemoveErrorMessage: "&l&8(&c!&8) &cCould not get entity, did you put the right id? Check the id the console or enable 'showId' in the config to see it chat!"
-noPermissions: "&l&8(&c!&8) &cYou dont have permission to use this command!"
+noPermissions: "&l&8(&c!&8) &cYou don't have permission to use this command!"
 loan-error: "&l&8(&c!&8) &c You have already taken a loan! You can't take another one."
 # Deposit Inv Info
 bankerMainDeposName: "&aDeposit Money"
@@ -53,19 +53,22 @@ withdrawInvLore2-2: "&7Amount to withdraw: "
 withdrawInvName3: "&aWithdraw 10%"
 withdrawInvLore3-1: "&7Withdraw a part of your money from the bank"
 withdrawInvLore3-2: "&7Amount to withdraw: "
-# Debt Inv
-debtInvPayName1: "&aPay up 100%"
-debtInvPayLore1-1: "&aPay up 100% of your debt"
-debtInvInvPayLore1-2: "&7Amount of debt you will pay up: "
-deptInvPayName2: "&aPay up 50%"
-deptInvPayLore2-1: "&aPay up 50% of your debt"
-debtInvPayLore2-2: "&7Amount of debt you will pay up: "
-deptInvPayName3: "&aPay up 10%"
-deptInvPayLore3-1: "&aPay up 10% of your debt"
-debtInvPayLore3-2: "&7Amount of debt you will pay up: "
 # Loans Inv
 loansTakeName: "&aTake Loan"
 loansTakeInfo: "&7Loans you "
+# Debt Inv
+debtInvPayName1: "&aPay up 100%"
+debtInvPayLore1-1: "&7Pay up 100% of your debt"
+debtInvPayLore1-2: "&7Amount of debt you will pay up: "
+debtInvPayName2: "&aPay up 50%"
+debtInvPayLore2-1: "&7Pay up 50% of your debt"
+debtInvPayLore2-2: "&7Amount of debt you will pay up: "
+debtInvPayName3: "&aPay up 10%"
+debtInvPayLore3-1: "&7Pay up 10% of your debt"
+debtInvPayLore3-2: "&7Amount of debt you will pay up: "
+debtInvCurrentMoneyName: "&aCurrent Balance"
+debtInvCurrentMoneyLore1-1: "&7You currently have: "
+debtInvCurrentMoneyLore1-2: "&7Your current debt is: "
 # Go back button
 goBack: "&cGo Back"
 # Banker NPC Name ( Default one ) ( NOT IMPLEMENTED INTO PLUGIN YET, FUTURE FEATURE )

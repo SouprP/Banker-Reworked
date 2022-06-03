@@ -1,8 +1,8 @@
 package me.souprpk.main.Tools;
 
 import me.souprpk.main.Banker;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
@@ -40,8 +40,22 @@ public class Utilities {
         return new BigDecimal(String.valueOf(x)).setScale(numberOfDecimals, RoundingMode.DOWN); // BigDecimal.ROUND_DOWN
     }
 
-    public String Translate(String string, int n) {
-        Bukkit.getConsoleSender().sendMessage("THIS IS YOUR STRING: " + ChatColor.translateAlternateColorCodes('&', string));
-        return ChatColor.translateAlternateColorCodes('&', string);
+    public void playSound(Player player, Transaction.TransactionType type){
+        try {
+            if(type.equals(Transaction.TransactionType.Deposit)){
+                player.playSound(player.getLocation(), Sound.valueOf(banker.getConfig().getString("main.deposit-sound")), 1, 1);
+            }
+            if(type.equals(Transaction.TransactionType.Withdraw)){
+                player.playSound(player.getLocation(), Sound.valueOf(banker.getConfig().getString("main.withdraw-sound")), 1, 1);
+            }
+            if(type.equals(Transaction.TransactionType.LoanTake)){
+                player.playSound(player.getLocation(), Sound.valueOf(banker.getConfig().getString("main.loan-take-sound")), 1, 1);
+            }
+            if(type.equals(Transaction.TransactionType.DebtPay)){
+                player.playSound(player.getLocation(), Sound.valueOf(banker.getConfig().getString("main.debt-pay-sound")), 1, 1);
+            }
+        }catch (Exception ignored){
+
+        }
     }
 }

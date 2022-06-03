@@ -14,6 +14,8 @@ main:
   # They need to be inside this -> ""
   deposit-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
   withdraw-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  loan-take-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  debt-pay-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
   enable-error: "&cPlugin disabled, something went wrong."
   # GUI names
   gui-display-name:
