@@ -149,7 +149,7 @@ public class BankerGUI {
         bankerInv.setItem(13, moneyWithdraw);
         bankerInv.setItem(15, moneyInBank);
         bankerInv.setItem(31, exit);
-        if(banker.getConfig().getBoolean("money.loans-on"))
+        if(banker.getConfig().getBoolean("money.loans.loans-on"))
             bankerInv.setItem(29, loanDebt);
     }
 
